@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harshu ❤️ Gauri</title>
+
+<style>
+/* BASIC PAGE SETUP */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #000;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Background Image Blur */
+.bg {
+    position: fixed;
+    inset: 0;
+    background: url("assets/bg.jpg") center/cover no-repeat;
+    filter: blur(4px);
+    opacity: 0.75;
+}
+
+/* Floating HEART PARTICLES */
+.heart {
+    position: fixed;
+    width: 18px;
+    height: 18px;
+    background: rgba(255, 130, 167, 0.9);
+    clip-path: path("M0.5,0.3 C0.5,-0.1 1,-0.1 1,0.3 C1,0.55 0.5,1 0.5,1 C0.5,1 0,0.55 0,0.3 C0,-0.1 0.5,-0.1 0.5,0.3 Z");
+    animation: floatUp 6s linear infinite;
+    pointer-events: none;
+    opacity: 0.7;
+}
+@keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0.6); opacity: 0.8; }
+    100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+}
+
+/* FIREFLIES */
+.firefly {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: #ffd9fa;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: fly 8s infinite ease-in-out;
+}
+@keyframes fly {
+    0% { transform: translate(0,0) scale(0.6); }
+    50% { transform: translate(40px, -60px) scale(1); }
+    100% { transform: translate(-40px, 20px) scale(0.7); }
+}
+
+/* MIST */
+.mist {
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
+    animation: mistMove 15s infinite linear;
+    filter: blur(40px);
+}
+@keyframes mistMove {
+    0% { transform: translate(0,0); }
+    100% { transform: translate(20%,10%); }
+}
+
+/* MAIN CONTAINER */
+.container {
+    position: absolute;
+    width: 100%;
+    top: 12%;
+    text-align: center;
+    color: white;
+}
+
+/* NAME TITLE Glow */
+.name-title {
+    font-size: 34px;
+    font-weight: 700;
+    text-shadow: 0 0 20px #ff74a6;
+    animation: pulseHeart 2.5s infinite;
+}
+@keyframes pulseHeart {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+/* TAP TITLE */
+.title {
+    font-size: 20px;
+    margin-top: 8px;
+    text-shadow: 0 0 8px black;
+}
+
+/* FLOWER */
+.flower {
+    width: 180px;
+    margin-top: 20px;
+    transition: all 0.6s ease;
+}
+
+.hidden { display: none; }
+
+/* MESSAGE BOX */
+.msg-box {
+    margin-top: 20px;
+}
+
+/* TYPING + FADE HYBRID */
+.typing {
+    display: inline-block;
+    font-size: 20px;
+    color: #ffe6f7;
+    opacity: 0;
+    animation: typeFade 3s forwards;
+}
+@keyframes typeFade {
+    0% { opacity: 0; filter: blur(8px); }
+    50% { opacity: 1; filter: blur(2px); }
+    100% { opacity: 1; filter: blur(0); }
+}
+
+/* BUTTONS */
+.btn {
+    padding: 12px 24px;
+    border-radius: 12px;
+    margin: 8px;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+.yes { background: #ff8fb4; color: #000; }
+.later { background: transparent; border: 1px solid white; color: white; }
+
+/* SLIDESHOW */
+.slide-container {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    color: white;
+    text-align: center;
+    padding-top: 40px;
+}
+.slide-title {
+    font-size: 26px;
+    text-shadow: 0 0 10px #ff9ac2;
+}
+.slide-img {
+    width: 85%;
+    border-radius: 14px;
+    margin-top: 12px;
+}
+
+/* CLOSE */
+.close-btn {
+    background: #ff4d7a;
+    color: black;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- EFFECT LAYERS -->
+<div class="bg"></div>
+<div class="mist"></div>
+
+<!-- Floating wild hearts generator -->
+<script>
+for (let i=0;i<20;i++){
+    let h=document.createElement("div");
+    h.className="heart";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(5+Math.random()*5)+"s";
+    document.body.appendChild(h);
+}
+for (let i=0;i<12;i++){
+    let f=document.createElement("div");
+    f.className="firefly";
+    f.style.left=Math.random()*100+"vw";
+    f.style.top=Math.random()*100+"vh";
+    document.body.appendChild(f);
+}
+</script>
+
+<!-- Music -->
+<audio id="bgMusic" src="assets/music.mp3" preload="auto"></audio>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+    <h2 class="name-title">Harshu ❤️ Gauri</h2>
+    <h2 class="title">Tap the flower 🌸</h2>
+
+    <img id="flowerBud" class="flower" src="assets/flower_bud.png">
+    <img id="flowerBloom" class="flower hidden" src="assets/flower_bloom.png">
+
+    <div id="messageBox" class="hidden msg-box">
+        <h2 id="typedText" class="typing"></h2>
+
+        <button id="yesBtn" class="btn yes">Yes ❤️</button>
+        <button id="laterBtn" class="btn later">Later 💭</button>
+    </div>
+</div>
+
+<!-- SLIDESHOW -->
+<div id="slideshow" class="slide-container hidden">
+    <h2 class="slide-title">Harshu & Gauri Forever ❤️</h2>
+    <img id="slideImg" class="slide-img" src="assets/img1.png">
+    <button id="closeSlide" class="btn close-btn">Close</button>
+</div>
+
+<!-- CONFETTI -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+const bud = document.getElementById("flowerBud");
+const bloom = document.getElementById("flowerBloom");
+const msg = document.getElementById("messageBox");
+const typedText = document.getElementById("typedText");
+const music = document.getElementById("bgMusic");
+
+const yesBtn = document.getElementById("yesBtn");
+const laterBtn = document.getElementById("laterBtn");
+
+const slideshow = document.getElementById("slideshow");
+const slideImg = document.getElementById("slideImg");
+const closeSlide = document.getElementById("closeSlide");
+
+let slides = [
+ "assets/img1.png",
+ "assets/img2.png",
+ "assets/img3.png",
+ "assets/img4.png",
+ "assets/img5.png"
+];
+
+let i = 0;
+
+/* BLOOM ACTION */
+bud.onclick = () => {
+    bud.classList.add("hidden");
+    bloom.classList.remove("hidden");
+
+    // Light burst effect
+    bloom.style.filter = "drop-shadow(0 0 25px #ff9bc6)";
+
+    msg.classList.remove("hidden");
+
+    music.play().catch(()=>{});
+
+    typeMessage("Gauri, you make my world feel magical... Will you be mine? — Harshu ❤️");
+};
+
+/* TYPING FADE ANIMATION */
+function typeMessage(text) {
+    typedText.innerHTML = text;
+}
+
+/* YES BUTTON */
+yesBtn.onclick = () => {
+    msg.classList.add("hidden");
+    slideshow.classList.remove("hidden");
+    startSlides();
+    throwConfetti();
+};
+
+/* LATER */
+laterBtn.onclick = () => alert("Take your time, Gauri 💗");
+
+/* SLIDESHOW */
+function startSlides() {
+    setInterval(()=>{
+        i = (i+1)%slides.length;
+        slideImg.src = slides[i];
+    }, 2000);
+}
+
+/* CLOSE */
+closeSlide.onclick = () => slideshow.classList.add("hidden");
+
+/* CONFETTI */
+function throwConfetti(){
+    let end = Date.now() + 2000;
+    (function frame(){
+        confetti({
+            particleCount: 8,
+            spread: 60,
+            origin: { x: Math.random(), y: Math.random() }
+        });
+        if(Date.now() < end) requestAnimationFrame(frame);
+    })();
+}
+</script>
+
+</body>
+</html>
